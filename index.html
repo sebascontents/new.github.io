@@ -1,83 +1,168 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Nueva Pestaña</title>
-<style>
-    html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        font-family: Arial, sans-serif;
-        color: white;
-    }
-    body {
-        background-image: url('chica_anime.jpg');
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-attachment: fixed;
-        background-size: cover;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .search-box {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 20px;
-        border-radius: 15px;
-    }
-    .search-input {
-        padding: 10px;
-        font-size: 18px;
-        border: none;
-        border-radius: 8px;
-        width: 300px;
-    }
-    .bookmarks, .recent {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px;
-        border-radius: 10px;
-        margin-top: 15px;
-        text-align: center;
-    }
-    a {
-        color: white;
-        text-decoration: none;
-        margin: 0 10px;
-        font-weight: bold;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Pestaña Premium</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --blur: 12px;
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        body {
+            /* Fondo con imagen y overlay oscuro para legibilidad */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('chica_anime.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Efecto Glassmorphism */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            margin-bottom: 20px;
+        }
+
+        /* Estilo del Buscador */
+        .search-input {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border: none;
+            border-radius: 30px !important;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .search-input:focus {
+            transform: scale(1.02);
+            box-shadow: 0 4px 25px rgba(255,255,255,0.4);
+        }
+
+        /* Estilos de los Marcadores (Botones) */
+        .btn-bookmark {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: white;
+            margin: 8px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-bookmark:hover {
+            background: white;
+            color: #333;
+            transform: translateY(-5px);
+        }
+
+        .btn-bookmark i {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Sección Recientes */
+        .recent-list {
+            font-size: 0.9rem;
+        }
+
+        .recent-link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            padding: 5px;
+            transition: 0.2s;
+        }
+
+        .recent-link:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Buscador de Google -->
-    <div class="search-box">
+<div class="main-container">
+    
+    <div class="glass-panel">
+        <h2 class="mb-4 fw-light">Hola, ¿qué buscamos hoy?</h2>
         <form action="https://www.google.com/search" method="GET">
-            <input type="text" name="q" class="search-input" placeholder="Buscar en Google..." autofocus>
+            <div class="input-group mb-2">
+                <input type="text" name="q" class="form-control search-input" placeholder="Buscar en Google..." autofocus>
+            </div>
         </form>
     </div>
 
-    <!-- Marcadores rápidos -->
-    <div class="bookmarks">
-        <a href="https://www.youtube.com" target="_blank">YouTube</a>
-        <a href="https://www.github.com" target="_blank">GitHub</a>
-        <a href="https://www.wikipedia.org" target="_blank">Wikipedia</a>
-        <a href="https://www.reddit.com" target="_blank">Reddit</a>
+    <div class="glass-panel">
+        <div class="d-flex flex-wrap justify-content-center">
+            <a href="https://www.youtube.com" class="btn-bookmark" target="_blank">
+                <i class="fab fa-youtube text-danger"></i> YouTube
+            </a>
+            <a href="https://www.github.com" class="btn-bookmark" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://www.wikipedia.org" class="btn-bookmark" target="_blank">
+                <i class="fab fa-wikipedia-w"></i> Wikipedia
+            </a>
+            <a href="https://www.reddit.com" class="btn-bookmark" target="_blank">
+                <i class="fab fa-reddit-alien" style="color: #FF4500;"></i> Reddit
+            </a>
+            <a href="https://web.whatsapp.com" class="btn-bookmark" target="_blank">
+                <i class="fab fa-whatsapp text-success"></i> WhatsApp
+            </a>
+        </div>
     </div>
 
-    <!-- Últimos sitios visitados -->
-    <div class="recent">
-        <h3>Últimos sitios visitados</h3>
-        <div id="recent-links"></div>
+    <div class="glass-panel">
+        <h5 class="mb-3"><i class="fas fa-history me-2"></i> Recientes</h5>
+        <div id="recent-links" class="recent-list">
+            </div>
     </div>
+
+</div>
 
 <script>
     // Guardar en localStorage los últimos enlaces abiertos
-    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+    document.querySelectorAll('.btn-bookmark').forEach(link => {
         link.addEventListener('click', () => {
             let recent = JSON.parse(localStorage.getItem('recentLinks')) || [];
             if (!recent.includes(link.href)) {
@@ -88,23 +173,24 @@
         });
     });
 
-    // Mostrar últimos enlaces guardados
+    // Mostrar últimos enlaces guardados de forma elegante
     const recentContainer = document.getElementById('recent-links');
     let recentLinks = JSON.parse(localStorage.getItem('recentLinks')) || [];
+    
     if (recentLinks.length === 0) {
-        recentContainer.innerHTML = "<p>No hay sitios recientes.</p>";
+        recentContainer.innerHTML = "<span class='text-muted'>No hay historial reciente</span>";
     } else {
         recentLinks.forEach(url => {
+            let cleanUrl = url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0];
             let a = document.createElement('a');
             a.href = url;
             a.target = "_blank";
-            a.textContent = url.replace(/^https?:\/\//, '');
+            a.className = "recent-link";
+            a.innerHTML = `<i class="fas fa-link me-2 small"></i>${cleanUrl}`;
             recentContainer.appendChild(a);
-            recentContainer.appendChild(document.createElement('br'));
         });
     }
 </script>
 
 </body>
 </html>
-
