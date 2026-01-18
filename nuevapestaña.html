@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Nueva Pestaña</title>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif;
+        color: white;
+    }
+    body {
+        background-image: url('chica_anime.jpg');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .search-box {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 15px;
+    }
+    .search-input {
+        padding: 10px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        width: 300px;
+    }
+    .bookmarks, .recent {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 15px;
+        text-align: center;
+    }
+    a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+</head>
+<body>
+
+    <!-- Buscador de Google -->
+    <div class="search-box">
+        <form action="https://www.google.com/search" method="GET">
+            <input type="text" name="q" class="search-input" placeholder="Buscar en Google..." autofocus>
+        </form>
+    </div>
+
+    <!-- Marcadores rápidos -->
+    <div class="bookmarks">
+        <a href="https://www.youtube.com" target="_blank">YouTube</a>
+        <a href="https://www.github.com" target="_blank">GitHub</a>
+        <a href="https://www.wikipedia.org" target="_blank">Wikipedia</a>
+        <a href="https://www.reddit.com" target="_blank">Reddit</a>
+    </div>
+
+    <!-- Últimos sitios visitados -->
+    <div class="recent">
+        <h3>Últimos sitios visitados</h3>
+        <div id="recent-links"></div>
+    </div>
+
+<script>
+    // Guardar en localStorage los últimos enlaces abiertos
+    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+        link.addEventListener('click', () => {
+            let recent = JSON.parse(localStorage.getItem('recentLinks')) || [];
+            if (!recent.includes(link.href)) {
+                recent.unshift(link.href);
+                if (recent.length > 5) recent.pop();
+                localStorage.setItem('recentLinks', JSON.stringify(recent));
+            }
+        });
+    });
+
+    // Mostrar últimos enlaces guardados
+    const recentContainer = document.getElementById('recent-links');
+    let recentLinks = JSON.parse(localStorage.getItem('recentLinks')) || [];
+    if (recentLinks.length === 0) {
+        recentContainer.innerHTML = "<p>No hay sitios recientes.</p>";
+    } else {
+        recentLinks.forEach(url => {
+            let a = document.createElement('a');
+            a.href = url;
+            a.target = "_blank";
+            a.textContent = url.replace(/^https?:\/\//, '');
+            recentContainer.appendChild(a);
+            recentContainer.appendChild(document.createElement('br'));
+        });
+    }
+</script>
+
+</body>
+</html>
+
