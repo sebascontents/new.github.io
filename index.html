@@ -41,14 +41,10 @@
         }
 
         /* Efecto Glassmorphism */
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--blur));
+        .glass-panel {        
             -webkit-backdrop-filter: blur(var(--blur));
-            border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             margin-bottom: 20px;
         }
 
@@ -178,7 +174,7 @@
     let recentLinks = JSON.parse(localStorage.getItem('recentLinks')) || [];
     
     if (recentLinks.length === 0) {
-        recentContainer.innerHTML = "<span class='text-muted'>No hay historial reciente</span>";
+        recentContainer.innerHTML = "<span class='text-light'>No hay historial reciente</span>";
     } else {
         recentLinks.forEach(url => {
             let cleanUrl = url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0];
